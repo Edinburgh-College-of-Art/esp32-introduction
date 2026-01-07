@@ -18,7 +18,7 @@ String incomingMsg;
 // CALLBACK FUNCTION
 
 // This function is executed when message is received
-void callbackFunction(const uint8_t *address, const uint8_t *incomingData, int length) {
+void messageReceived(const uint8_t *address, const uint8_t *incomingData, int length) {
   // Clear string variable
   incomingMsg = "";
 
@@ -58,7 +58,7 @@ void setup() {
   }
 
   // Pin callback function
-  esp_now_register_recv_cb(callbackFunction);
+  esp_now_register_recv_cb(messageReceived);
 }
 
 //==============================================================
