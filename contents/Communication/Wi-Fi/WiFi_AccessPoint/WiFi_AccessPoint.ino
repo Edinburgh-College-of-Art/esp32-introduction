@@ -1,5 +1,5 @@
 //=============================================================
-// File:    ESP32_WiFi_AccessPoint.ino
+// File:    WiFi_AccessPoint.ino
 //
 // Author:  J. Hathway 2025
 //
