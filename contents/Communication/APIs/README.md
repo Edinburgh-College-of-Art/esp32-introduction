@@ -190,7 +190,7 @@ In the following sections we will look at how to get an JSON response from an AP
 
 ## Usage
 
-For a full example sketch, [click here](ESP32_API_ExampleRequest/ESP32_API_ExampleRequest.ino).
+For a full example sketch, [click here](API_OpenMeteo/API_OpenMeteo.ino).
 
 To make and deserialize an API request from the ESP32, we will need to include the:
 

@@ -1,5 +1,5 @@
 //=============================================================
-// File:    API_ExampleRequest.ino
+// File:    API_AdviceSlip.ino
 //
 // Author:  J. Hathway 2025
 //
@@ -8,10 +8,10 @@
 //
 // Description:
 //     - This sketch makes an example API request from an
-//       ESP32 using the https://open-meteo.com/ API.
+//       ESP32 to the https://api.adviceslip.com/ API.
 //     - This sketch will then deserialize the response to
-//       retrieve temperature, rainfall, and air pressure data
-//       and print it to the Serial Monitor.
+//       retrieve a random peice of advice and print it to the 
+//       Serial Monitor every 5 seconds.
 //     - You will need to replace the ssid and password
 //       variables with your own Wi-Fi network name and
 //       password.
@@ -23,12 +23,14 @@
 
 //=======================================================
 // **REPLACE THESE VARIABLES WITH YOUR DETAILS**
-const char* ssid = "WiFiNetworkName";
-const char* password = "WiFiNetworkPassword";
+// const char* ssid = "WiFiNetworkName";
+// const char* password = "WiFiNetworkPassword";
+const char* ssid = "JoesPhone";
+const char* password = "12345678";
 //=======================================================
 
 // API Request URL
-const char* requestURL = "https://api.open-meteo.com/v1/forecast?latitude=55.9521&longitude=-3.1965&current=temperature_2m,rain,pressure_msl";
+const char* requestURL = "https://api.adviceslip.com/advice";
 
 // Function definitions
 bool connectToWiFi(const char* _ssid, const char* _password);
@@ -71,24 +73,18 @@ void loop() {
   //=======================================================
   // 3. EXTRACT DATA
 
-  JsonObject current = doc["current"];
+  String newAdvice = doc["slip"]["advice"];
 
-  float temperature = current["temperature_2m"];  // temperature in celsius
-  float rain = current["rain"];                   // rain in mm
-  float pressure = current["pressure_msl"];       // air pressure in hPa
-  
   //=======================================================
   // 4. USE/PRINT DATA
 
   // Print data to Serial Monitor
-  Serial.println("Temp: " + String(temperature) + "C");
-  Serial.println("Rain: " + String(rain) + "mm");
-  Serial.println("Pres: " + String(pressure) + "hPa");
+  Serial.println(newAdvice);
 
   //=======================================================
 
-  // Wait 1 min before making next request
-  delay(60000);
+  // Wait 5 seconds before making next request
+  delay(5000);
 }
 
 //============================================================
