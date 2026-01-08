@@ -1,16 +1,20 @@
 //=============================================================
-// File:    AdafruitIO_Subscribe_Basic.ino
+// File:    AdafruitIO_Subscribe_Servo.ino
 //
-// Author:  J. Hathway 2025
+// Author:  J. Hathway 2026
 //
 // Dependencies:
 //     - AdafruitIO library (Adafruit)
 //
 // Description:
-//     - Subscribe data from AdafruitIO feed
+//     - Subscribe potentiometer data from AIO and use it to 
+//       update servo position.
 //=============================================================
 
 #include <AdafruitIO_WiFi.h>
+#include <ESP32Servo.h>
+
+#define SERVO_PIN 12
 
 // Replace these parameters with your:
 // - AdafruitIO username
@@ -22,6 +26,8 @@ AdafruitIO_WiFi io("aio_username", "aio_key", "wifi_name", "wifi_password");
 // Replace "feed_name" with your actual feed name e.g. "Counter"
 AdafruitIO_Feed *myFeed = io.feed("feed_name");
 
+// Servo object
+Servo servo;
 
 //=============================================================
 // CALLBACK FUNCTION
@@ -30,9 +36,18 @@ void handleMessage(AdafruitIO_Data *data) {
   // Receive incoming data
   String incomingData = data->value();
 
-  // print incoming data to Serial Monitor
+  // Scale data from 0-4095 to 0-180
+  int servoPosition = map(incomingData.toInt(), 0, 4095, 0, 180);
+
+  // Update servo position
+  servo.write(servoPosition);
+
+  // Print data to Serial Monitor
   Serial.print("Received: ");
-  Serial.println(incomingData);
+  Serial.print(incomingData);
+  Serial.print(", Servo position: ");
+  Serial.print(servoPosition);
+  Serial.println();
 }
 
 //=============================================================
@@ -41,7 +56,7 @@ void handleMessage(AdafruitIO_Data *data) {
 void setup() {
   // Start serial communication
   Serial.begin(115200);
-  Serial.println("AdafruitIO Subscribe Example");
+  Serial.println("AdafruitIO Servo Example");
 
   // Connect to AIO
   Serial.println("Connecting to AdafruitIO...");
@@ -52,6 +67,9 @@ void setup() {
   // Pin callback function to message received
   myFeed->onMessage(handleMessage);
   myFeed->get();
+
+  // Attach pin to servo object
+  servo.attach(SERVO_PIN);
 }
 
 

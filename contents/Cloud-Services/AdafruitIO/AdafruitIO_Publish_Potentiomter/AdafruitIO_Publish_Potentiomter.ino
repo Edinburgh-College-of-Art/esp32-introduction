@@ -1,16 +1,18 @@
 //=============================================================
-// File:    AdafruitIO_Subscribe_Basic.ino
+// File:    AdafruitIO_Publish_Potentiomter.ino
 //
-// Author:  J. Hathway 2025
+// Author:  J. Hathway 2026
 //
 // Dependencies:
 //     - AdafruitIO library (Adafruit)
 //
 // Description:
-//     - Subscribe data from AdafruitIO feed
+//     - Get potentiometer value and send to AIO feed.
 //=============================================================
 
 #include <AdafruitIO_WiFi.h>
+
+#define POT_PIN 32
 
 // Replace these parameters with your:
 // - AdafruitIO username
@@ -24,34 +26,18 @@ AdafruitIO_Feed *myFeed = io.feed("feed_name");
 
 
 //=============================================================
-// CALLBACK FUNCTION
-
-void handleMessage(AdafruitIO_Data *data) {
-  // Receive incoming data
-  String incomingData = data->value();
-
-  // print incoming data to Serial Monitor
-  Serial.print("Received: ");
-  Serial.println(incomingData);
-}
-
-//=============================================================
 // SETUP
 
 void setup() {
   // Start serial communication
   Serial.begin(115200);
-  Serial.println("AdafruitIO Subscribe Example");
+  Serial.println("AdafruitIO Potentiometer Example");
 
   // Connect to AIO
   Serial.println("Connecting to AdafruitIO...");
   io.connect();                           // attempt connection
   while (io.status() < AIO_CONNECTED) {}  // wait until connected
   Serial.println(io.statusText());        // print connection status
-
-  // Pin callback function to message received
-  myFeed->onMessage(handleMessage);
-  myFeed->get();
 }
 
 
@@ -59,5 +45,13 @@ void setup() {
 // LOOP
 
 void loop() {
-  io.run();
+  // Generate random number
+  int potValue = analogRead(POT_PIN);
+
+  // Send random number to feed
+  myFeed->save(potValue);
+  Serial.println("Sent: " + String(potValue));  //print to Serial Monitor too
+
+  // 3s delay to not exceed 30 messages per min
+  delay(3000);
 }
