@@ -1,5 +1,5 @@
 //================================================================
-// File:    ESP32_ESPNOW_ServoCtrl.ino
+// File:    ESPNOW_ServoCtrl.ino
 //
 // Author:  J. Hathway 2026
 //

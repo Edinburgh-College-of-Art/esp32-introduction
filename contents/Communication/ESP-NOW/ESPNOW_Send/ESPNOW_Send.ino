@@ -1,13 +1,11 @@
 //==============================================================
-// File:    ESP32_ESPNOW_SendReceive.ino
+// File:    ESPNOW_Send.ino
 //
-// Author:  J. Hathway 2026
+// Author:  J. Hathway 2025
 //
 // Description:
 //     - This sketch will send ESP-NOW messages to deviced with
 //       specified MAC addresses.
-//     - This sketch will also receive any incoming ESP-NOW 
-//       messages and print them to the Serial Monitor.
 //     - You will need to enter the MAC address of the device(s)
 //       you wish to send to.
 //==============================================================
@@ -15,36 +13,19 @@
 #include <WiFi.h>
 #include <esp_now.h>
 
-// Variable to store in/out messages
-String outgoingMsg = "Hello"; // feel free to replace this with your own message
-String incomingMsg;
+// Message to send
+String outgoingMsg = "Hello World!";
 
-// MAC address of other device
-uint8_t macAddress[] = { 0x38, 0x18, 0x2B, 0xF7, 0xC0, 0x2C };
+// MAC address(es) to send to
+uint8_t macAddress[] = { 0x14, 0x33, 0x5C, 0x5B, 0xA0, 0xA0 };
+//uint8_t macAddress2[] = { 0x4C, 0x75, 0x25, 0x9F, 0x09, 0x28 };
 
 // ESP-NOW variables
 esp_now_peer_info_t peerInfo;
 int peerCount = 0;
 
 //=============================================================
-// CALLBACK FUNCTIONS
-
-// This function is executed when message is received
-void messageReceived(const uint8_t *address, const uint8_t *incomingData, int length) {
-  // Clear string variable
-  incomingMsg = "";
-
-  // Copy incoming data to message variable
-  for (int i = 0; i < length; i++) {
-    // If end of strink, break loop
-    if ((char)incomingData[i] == '\0') break;
-
-    incomingMsg += (char)incomingData[i];
-  }
-
-  // Print message to Serial Monitor
-  Serial.println("\nReceived: " + incomingMsg);
-}
+// CALLBACK FUNCTION
 
 // This function will be executed whenever a message is sent
 void messageSent(const uint8_t *address, esp_now_send_status_t status) {
@@ -54,6 +35,8 @@ void messageSent(const uint8_t *address, esp_now_send_status_t status) {
   // Check if message was delivered
   if (status != ESP_NOW_SEND_SUCCESS) {
     Serial.println("Error: Failed to deliver.");
+  } else {
+    Serial.println("Delivered.");
   }
 }
 
@@ -63,7 +46,7 @@ void messageSent(const uint8_t *address, esp_now_send_status_t status) {
 void setup() {
   // Start serial communication
   Serial.begin(115200);
-  Serial.println("ESP-NOW Send and Receive Example");
+  Serial.println("ESP-NOW Send Example");
   Serial.print("MAC Address: ");
   Serial.println(WiFi.macAddress());
   Serial.println();
@@ -81,9 +64,8 @@ void setup() {
     while (true) {}
   }
 
-  // Pin callback functions
-  esp_now_register_send_cb(messageSent);      // on message sent
-  esp_now_register_recv_cb(messageReceived);  // on message received
+  // Pin callback function
+  esp_now_register_send_cb(messageSent);
 
   //==============================================================
   // Pair Device(s)
@@ -93,6 +75,7 @@ void setup() {
   peerInfo.encrypt = false;
 
   pair(macAddress);  // add first device
+  //sendTo(macAddress2); // you would add a second device like this
 }
 
 //=============================================================
