@@ -37,7 +37,7 @@ Otherwise, if you are connecting multiple ESP32 or similar devices, you will nee
 
 ## Code
 
-Full example sketch for Bluetooth server device can be found [here](./ESP32_Bluetooth_Client/ESP32_Bluetooth_Client.ino) and client sketch can be found [here](./ESP32_Bluetooth_Server/ESP32_Bluetooth_Server.ino).
+Full example sketch for Bluetooth server device can be found [here](./BluetoothClassic_Server/BluetoothClassic_Server.ino) and client sketch can be found [here](./BluetoothClassic_Client/BluetoothClassic_Client.ino).
 
 ### BluetoothSerial.h Library
 

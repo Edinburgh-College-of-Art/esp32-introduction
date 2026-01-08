@@ -43,4 +43,4 @@ uint8_t macAddress[] = { 0x4C, 0x75, 0x25, 0x9F, 0x00, 0xA8 };
 
 ## Code
 
-Follow these links to find full example sketches for [sending ESP_NOW messages](./ESP32_ESPNOW_Send/ESP32_ESPNOW_Send.ino) and [receiving ESP-NOW messages](./ESP32_ESPNOW_Receive/ESP32_ESPNOW_Receive.ino).
+Follow these links to find full example sketches for [sending ESP_NOW messages](./ESPNOW_Send/ESPNOW_Send.ino) and [receiving ESP-NOW messages](./ESPNOW_Receive/ESPNOW_Receive.ino).

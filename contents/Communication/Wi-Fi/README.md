@@ -22,4 +22,4 @@ Creating local networks is a bit like starting a Wi-Fi hotspot on your phone. It
 
 ## Code
 
-You can use these links to find full example sketches for [connecting to Wi-Fi](./ESP32_WiFi_Connect/ESP32_WiFi_Connect.ino) and [starting a Wi-Fi access point](./ESP32_WiFi_AccessPoint/ESP32_WiFi_AccessPoint.ino) on the ESP32.
+You can use these links to find full example sketches for [connecting to Wi-Fi](./WiFi_Connect/WiFi_Connect.ino) and [starting a Wi-Fi access point](./WiFi_AccessPoint/WiFi_AccessPoint.ino) on the ESP32.
