@@ -1,12 +1,12 @@
 //=============================================================
-// File:    ESP32_Bluetooth_Client.ino
+// File:    BluetoothClassic_Server.ino
 //
 // Author:  J. Hathway 2025
 //
 // Description:
 //     - This sketch will initialise the ESP32 as a Bluetooth
-//       client device.
-//     - Once connected to the server device, it will send and
+//       server.
+//     - Once connected to the client device, it will send and
 //       receive messages over Bluetooth Serial.
 //     - Use Serial Monitor to send messages to paired device.
 //=============================================================
@@ -15,7 +15,8 @@
 
 BluetoothSerial bluetooth;
 
-#define DEVICE_NAME "ESP32_Client"
+#define DEVICE_NAME "ESP32_SERVER"  // this device
+#define CLIENT_NAME "ESP32_Client"  // device to connect to
 
 //=============================================================
 // SETUP
@@ -26,14 +27,41 @@ void setup() {
   Serial.println();
 
   // Start Bluetooth Serial
-  bluetooth.begin(DEVICE_NAME);
-  Serial.println("The device started, ready to pair with server.");
+  // "true" argument sets this device to be server device
+  bluetooth.begin(DEVICE_NAME, true);
+
+  // Connect to client device
+  bool connected = false;
+  while (!connected) {
+    Serial.println("Connecting to " + String(CLIENT_NAME) + "...");
+    connected = bluetooth.connect(CLIENT_NAME);  // connect to client
+    delay(5000);                                 // time to connect
+  }
+
+  Serial.println("Connected.");
 }
 
 //=============================================================
 // LOOP
 
 void loop() {
+  //=========================================================
+  // CHECK CONNECTION
+
+  if (!bluetooth.connected()) {
+
+    Serial.println("Disconnected.");
+    bool connected = false;
+
+    while (!connected) {
+      Serial.println("Reconnecting...");
+      connected = bluetooth.connect(CLIENT_NAME);  // reconnect to client
+      delay(5000);                                 // time to connect
+    }
+
+    Serial.println("Connected.");
+  }
+
   //=========================================================
   // RECEIVE BLUETOOTH DATA
 
