@@ -40,15 +40,17 @@ void setup() {
   // Start serial communication
   Serial.begin(115200);
   Serial.println("ESP-NOW LED Example");
-  Serial.print("MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println();
 
   //==============================================================
   // Initialise ESP-NOW
 
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
+
+  // Print MAC address
+  Serial.print("MAC Address: ");
+  Serial.println(WiFi.macAddress());
+  Serial.println();
 
   // Initialise ESPNOW
   // Do not continue if not initialised
