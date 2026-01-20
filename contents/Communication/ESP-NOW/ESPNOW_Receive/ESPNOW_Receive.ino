@@ -18,7 +18,7 @@ String incomingMsg;
 // CALLBACK FUNCTION
 
 // This function is executed when message is received
-void messageReceived(const uint8_t *address, const uint8_t *incomingData, int length) {
+void messageReceived(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData, int length) {
   // Clear string variable
   incomingMsg = "";
 

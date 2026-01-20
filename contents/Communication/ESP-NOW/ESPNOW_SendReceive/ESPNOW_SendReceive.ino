@@ -30,7 +30,7 @@ int peerCount = 0;
 // CALLBACK FUNCTIONS
 
 // This function is executed when message is received
-void messageReceived(const uint8_t *address, const uint8_t *incomingData, int length) {
+void messageReceived(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData, int length) {
   // Clear string variable
   incomingMsg = "";
 
@@ -47,9 +47,9 @@ void messageReceived(const uint8_t *address, const uint8_t *incomingData, int le
 }
 
 // This function will be executed whenever a message is sent
-void messageSent(const uint8_t *address, esp_now_send_status_t status) {
+void messageSent(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
   // Print outgoing message to Serial Monitor
-  Serial.println("\nSending message:" + outgoingMsg);
+  Serial.println("\nSending message: " + outgoingMsg);
 
   // Check if message was delivered
   if (status != ESP_NOW_SEND_SUCCESS) {

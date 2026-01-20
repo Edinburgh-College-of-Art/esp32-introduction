@@ -28,9 +28,9 @@ int peerCount = 0;
 // CALLBACK FUNCTION
 
 // This function will be executed whenever a message is sent
-void messageSent(const uint8_t *address, esp_now_send_status_t status) {
+void messageSent(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
   // Print outgoing message to Serial Monitor
-  Serial.println("\nSending message:" + outgoingMsg);
+  Serial.println("\nSending message: " + outgoingMsg);
 
   // Check if message was delivered
   if (status != ESP_NOW_SEND_SUCCESS) {

@@ -124,7 +124,7 @@ void loop() {
   // Print values to Serial Monitor
 
   Serial.print("In: " + incomingVal);
-  Serial.print(", Out:" + outgoingVal);
+  Serial.print(", Out: " + outgoingVal);
   Serial.println();
 
   delay(100);
@@ -134,7 +134,7 @@ void loop() {
 // CALLBACK FUNCTIONS
 
 // This function is executed when message is received
-void messageReceived(const uint8_t *address, const uint8_t *incomingData, int length) {
+void messageReceived(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData, int length) {
   incomingVal = "";
 
   // Copy incoming data to message variable
@@ -147,7 +147,7 @@ void messageReceived(const uint8_t *address, const uint8_t *incomingData, int le
 }
 
 // This function will be executed whenever a message is sent
-void messageSent(const uint8_t *address, esp_now_send_status_t status) {
+void messageSent(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
   // Check if message was delivered
   if (status != ESP_NOW_SEND_SUCCESS) {
     Serial.println("Error: Failed to deliver.");
