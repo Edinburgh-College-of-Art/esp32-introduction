@@ -35,6 +35,8 @@ At least **2 GB of RAM** is recommended, and the IDE (plus boards and libraries)
 
 Some ESP32 board tools require **Python**, but it is almost always installed automatically by the ESP32 board manager. If you need to install Python manually, you can do so from [python.org](https://www.python.org/downloads/).
 
+You may also need to install a CP210x USB to UART Bridge VCP Driver. You can install this [here](https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads).
+
 
 ### Download
 
