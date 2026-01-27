@@ -66,7 +66,7 @@ Example Sketches:
 - [Publish](./AdafruitIO_Publish_Basic/AdafruitIO_Publish_Random.ino)
 - [Subscribe](./AdafruitIO_Subscribe_Basic/AdafruitIO_Subscribe_Basic.ino)
 
-You will need to install the [AdafruitIO library](https://github.com/adafruit/Adafruit_IO_Arduino) from the IDE's Libraries Manager. The AIO library then provides us with some objects that need setup in the global variable space, before the `setup()`function. 
+You will need to install the [AdafruitIO library](https://github.com/adafruit/Adafruit_IO_Arduino) from the IDE's Libraries Manager (search for *Adafruit IO Arduino*). The AIO library then provides us with some objects that need setup in the global variable space, before the `setup()`function. 
 
 Make sure your details/names are spelled correctly, including spaces and capital letters.
 
